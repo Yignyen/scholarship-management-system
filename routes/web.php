@@ -54,6 +54,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 });
 
 
+    Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
+});
 
 
 
