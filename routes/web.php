@@ -30,10 +30,31 @@ Route::post('/admin/login', [AdminLoginController::class, 'login'])
     ->name('admin.login.submit');
 
 // Admin dashboard (ONLY admin can access)
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', function () {
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+
+    // Dashboard
+    Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
+
+    // Scholarships placeholder
+    Route::get('/scholarships', function () {
+        return view('admin.scholarships.index');
+    })->name('admin.scholarships.index');
+
+    // Users placeholder
+    Route::get('/users', function () {
+        return view('admin.users.index');
+    })->name('admin.users.index');
+
+    // Applications placeholder
+    Route::get('/applications', function () {
+        return view('admin.applications.index');
+    })->name('admin.applications.index');
 });
+
+
+
+
 
 require __DIR__.'/auth.php';
