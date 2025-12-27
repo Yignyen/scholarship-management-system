@@ -4,6 +4,12 @@
 <div class="container mx-auto py-8">
     <h1 class="text-2xl font-bold mb-4">Manage Users</h1>
 
+    {{-- Back Button: Takes admin back to the admin dashboard page --}}
+    <a href="{{ route('admin.dashboard') }}" 
+       class="mb-4 inline-block px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+        &larr; Back  {{-- Left arrow indicates going back --}}
+    </a>
+
     <a href="{{ route('admin.users.create') }}" class="mb-4 inline-block px-4 py-2 bg-blue-500 text-white rounded">Create New User</a>
 
     @if(session('success'))

@@ -2,6 +2,13 @@
 
 @section('content')
 <div class="container mx-auto py-8">
+
+{{-- Back Button: Takes admin back to the Users Management page --}}
+    <a href="{{ route('admin.users.index') }}" 
+       class="mb-4 inline-block px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+        &larr; Back  {{-- Left arrow indicates going back --}}
+    </a>
+
     <h1 class="text-2xl font-bold mb-4">Edit User</h1>
 
     <form action="{{ route('admin.users.update', $user->id) }}" method="POST" class="space-y-4">
