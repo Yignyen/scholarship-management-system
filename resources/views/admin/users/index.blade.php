@@ -1,16 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="p-8">
-    <nav class="bg-gray-100 border-b mb-6 p-4 flex gap-4">
-        <a href="{{ route('admin.dashboard') }}" class="text-blue-600 hover:underline">Dashboard</a>
-        <a href="{{ route('admin.scholarships.index') }}" class="text-blue-600 hover:underline">Scholarships</a>
-        <a href="{{ route('admin.users.index') }}" class="text-blue-600 hover:underline">Manage Users</a>
-        <a href="{{ route('admin.applications.index') }}" class="text-blue-600 hover:underline">Applications</a>
-    </nav>
+<div class="container mx-auto py-8">
+    <h1 class="text-2xl font-bold mb-4">Manage Users</h1>
 
-    <h1 class="text-2xl font-bold mb-4">Scholarships</h1>
-    <p>Page is empty for now.</p>
+    <a href="{{ route('admin.users.create') }}" class="mb-4 inline-block px-4 py-2 bg-blue-500 text-white rounded">Create New User</a>
+
+    @if(session('success'))
+        <div class="mb-4 text-green-600">{{ session('success') }}</div>
+    @endif
 
     <table class="min-w-full border border-gray-200">
         <thead>
@@ -19,6 +17,7 @@
                 <th class="px-4 py-2 border">Name</th>
                 <th class="px-4 py-2 border">Email</th>
                 <th class="px-4 py-2 border">Role</th>
+                <th class="px-4 py-2 border">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -28,10 +27,17 @@
                 <td class="px-4 py-2 border">{{ $user->name }}</td>
                 <td class="px-4 py-2 border">{{ $user->email }}</td>
                 <td class="px-4 py-2 border">{{ $user->role }}</td>
+                <td class="px-4 py-2 border flex gap-2">
+                    <a href="{{ route('admin.users.edit', $user->id) }}" class="px-2 py-1 bg-yellow-400 text-white rounded">Edit</a>
+                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
+                        @csrf
+                        @method('DELETE')
+                        <button class="px-2 py-1 bg-red-500 text-white rounded">Delete</button>
+                    </form>
+                </td>
             </tr>
             @endforeach
         </tbody>
     </table>
 </div>
-
 @endsection

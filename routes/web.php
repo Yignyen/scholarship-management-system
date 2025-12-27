@@ -53,11 +53,32 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     })->name('admin.applications.index');
 });
 
+// Admin Users Route
+// This route handles the "Manage Users" page for admins.
+// - URL: /admin/users
+// - Controller: App\Http\Controllers\Admin\UserController@index
+// - Name: admin.users.index (for Blade route helpers)
+// - Middleware: 'auth' (must be logged in), 'admin' (must be an admin user)
+// - Prefixed with 'admin', so the full URL is /admin/users
 
     Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
 });
 
+
+//for CRUD user management isnide the admin /user managment page
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+
+    // Users CRUD
+    Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
+    Route::get('/users/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('admin.users.create');
+    Route::post('/users', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('admin.users.store');
+    Route::get('/users/{user}/edit', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('admin.users.edit');
+    Route::put('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('admin.users.update');
+    Route::delete('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('admin.users.destroy');
+
+});
 
 
 require __DIR__.'/auth.php';
