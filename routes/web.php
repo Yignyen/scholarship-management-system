@@ -79,6 +79,17 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::delete('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('admin.users.destroy');
 
 });
+// for admin schoalrship 
+//This automatically creates:
+
+//admin.scholarships.create
+
+//admin.scholarships.store
+
+//admin.scholarships.index
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('scholarships', \App\Http\Controllers\Admin\ScholarshipController::class);
+});
 
 
 require __DIR__.'/auth.php';
