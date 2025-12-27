@@ -10,7 +10,10 @@
     //scholarship
 
     use App\Http\Controllers\Student\ScholarshipController;
+//for store scholarship form
+    use App\Http\Controllers\Student\ApplicationController;
 
+   
 
     Route::get('/', function () {
         return view('welcome');
@@ -132,11 +135,11 @@ Route::middleware(['auth'])->prefix('student')->name('student.')->group(function
 
     // Show apply form
     Route::get('/scholarship/{id}/apply', [ScholarshipController::class, 'create'])
-        ->name('scholarship.apply');
+        ->name('scholarship.apply.form');
 
     // Submit application
     Route::post('/scholarship/{id}/apply', [ScholarshipController::class, 'store'])
-        ->name('scholarship.store');
+        ->name('scholarship.apply');
 
     // Edit application
     Route::get('/application/{id}/edit', [ScholarshipController::class, 'edit'])
@@ -147,8 +150,21 @@ Route::middleware(['auth'])->prefix('student')->name('student.')->group(function
         ->name('applications.update');
 });
 
-    
-    
 
+
+//Route::post('/scholarship/{scholarship}/apply', [ApplicationController::class, 'store'])
+   // ->name('scholarships.store');
+
+    
+Route::middleware(['auth', 'student'])
+    ->prefix('student')
+    ->name('student.')
+    ->group(function () {
+
+        Route::post('/scholarship/{scholarship}/apply', 
+            [ApplicationController::class, 'store']
+        )->name('scholarships.store');
+
+    });
 
     require __DIR__.'/auth.php';

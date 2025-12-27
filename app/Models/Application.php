@@ -7,12 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'user_id',
         'scholarship_id',
-        'status', // or any other columns like 'details'
-        'details',
+        'name',
+        'email',
+        'phone',
+        'dob',
+        'gender',
+        'rc',
+        'address',
     ];
 }

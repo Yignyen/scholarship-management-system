@@ -40,6 +40,20 @@ class ScholarshipController extends Controller
     public function store(Request $request, $id)
     {
         // logic from previous application store code
+        Application::create([
+            'user_id' => Auth::id(),
+            'scholarship_id' => $id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'dob' => $request->dob,
+            'gender' => $request->gender,
+            'rc' => $request->rc,
+            'address' => $request->address,
+        ]);
+    
+        return redirect()->route('student.dashboard');
+    
     }
 
     // Edit own application
@@ -50,8 +64,21 @@ class ScholarshipController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $application = Application::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
-        // validate and update logic
-    }
+{
+    $application = Application::where('id', $id)
+                    ->where('user_id', Auth::id())
+                    ->firstOrFail();
+
+    $application->update([
+        'name' => $request->name,
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'dob' => $request->dob,
+        'gender' => $request->gender,
+        'rc' => $request->rc,
+        'address' => $request->address,
+    ]);
+
+    return redirect()->route('student.dashboard')->with('success', 'Application updated!');
+}
 }

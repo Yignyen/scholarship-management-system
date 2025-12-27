@@ -24,13 +24,14 @@
                     <td class="px-4 py-2 border">{{ $scholarship->deadline }}</td>
                     <td class="px-4 py-2 border">{{ $scholarship->funded_by }}</td>
                     <td class="px-4 py-2 border">
-                        @if(in_array($scholarship->id, $applications))
-                            <!-- If student has already applied, show Edit -->
-                            <a href="{{ route('student.applications.edit', $scholarship->id) }}" class="px-2 py-1 bg-yellow-400 text-white rounded">Edit</a>
-                        @else
-                            <!-- If not applied yet, show Apply -->
-                            <a href="{{ route('student.scholarship.apply', $scholarship->id) }}" class="px-2 py-1 bg-blue-500 text-white rounded">Apply</a>
-                        @endif
+                    @if(in_array($scholarship->id, $applications))
+    <!-- If student has already applied, show Edit -->
+    <a href="{{ route('student.applications.edit', $scholarship->id) }}" class="px-2 py-1 bg-yellow-400 text-white rounded">Edit</a>
+@else
+    <!-- If not applied yet, show Apply -->
+    <a href="{{ route('student.scholarship.apply.form', $scholarship->id) }}" class="px-2 py-1 bg-blue-500 text-white rounded">Apply</a>
+@endif
+
                     </td>
                 </tr>
             @endforeach
