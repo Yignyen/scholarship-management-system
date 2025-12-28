@@ -4,7 +4,7 @@
 <div class="container mx-auto py-8">
     <h2 class="text-xl font-bold mb-4">Apply for Scholarship</h2>
 
-    <form method="POST" action="{{ route('student.scholarship.apply', $scholarship->id) }}">
+    <form method="POST" action="{{ route('student.scholarship.apply.form', $scholarship->id) }}">
     @csrf
     <input type="text" name="name" placeholder="Full Name" class="border w-full mb-2 p-2">
     <input type="email" name="email" placeholder="Email" class="border w-full mb-2 p-2">

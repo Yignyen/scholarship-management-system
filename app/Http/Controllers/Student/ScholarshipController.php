@@ -23,8 +23,8 @@ class ScholarshipController extends Controller
 
 // Get list of scholarship IDs that the currently logged-in student has already applied to
         $applications = Application::where('user_id', Auth::id())
-                    ->pluck('scholarship_id')
-                    ->toArray();
+                    ->get()
+                    ->keyBy('scholarship_id'); // IMPORTANT
 
         return view('student.dashboard', compact('scholarships', 'applications'));
     }
@@ -50,6 +50,7 @@ class ScholarshipController extends Controller
             'gender' => $request->gender,
             'rc' => $request->rc,
             'address' => $request->address,
+            'status' => 'pending', // ✅ DEFAULT
         ]);
     
         return redirect()->route('student.dashboard');

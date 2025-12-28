@@ -11,7 +11,7 @@
 
     use App\Http\Controllers\Student\ScholarshipController;
 //for store scholarship form
-    use App\Http\Controllers\Student\ApplicationController;
+      use App\Http\Controllers\Student\ApplicationController;
 
    
 
@@ -87,9 +87,9 @@
     // - Middleware: 'auth' (must be logged in), 'admin' (must be an admin user)
     // - Prefixed with 'admin', so the full URL is /admin/users
 
-        Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-        Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
-    });
+      //  Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+      //  Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
+    //});
 
 
     //for CRUD user management isnide the admin /user managment page
@@ -115,6 +115,19 @@
     //admin.scholarships.index
     Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
         Route::resource('scholarships', \App\Http\Controllers\Admin\ScholarshipController::class);
+
+    
+
+            Route::get('/applications', [App\Http\Controllers\Admin\ApplicationController::class, 'index'])
+                ->name('applications.index');
+        
+            Route::post('/applications/{id}/approve', [App\Http\Controllers\Admin\ApplicationController::class, 'approve'])
+                ->name('applications.approve');
+        
+            Route::post('/applications/{id}/reject', [App\Http\Controllers\Admin\ApplicationController::class, 'reject'])
+                ->name('applications.reject');
+        
+        
     });
 
 
@@ -126,29 +139,34 @@
     // for student scholarship sections(inside studentdashbpard page    )
     // Student routes - only accessible by logged-in students
     //use App\Http\Controllers\Student\ScholarshipController;
+    use Illuminate\Support\Facades\Auth;
 
-Route::middleware(['auth'])->prefix('student')->name('student.')->group(function () {
-
-    // Student dashboard – list scholarships
-    Route::get('/dashboard', [ScholarshipController::class, 'index'])
-        ->name('dashboard');
-
-    // Show apply form
-    Route::get('/scholarship/{id}/apply', [ScholarshipController::class, 'create'])
-        ->name('scholarship.apply.form');
-
-    // Submit application
-    Route::post('/scholarship/{id}/apply', [ScholarshipController::class, 'store'])
-        ->name('scholarship.apply');
-
-    // Edit application
-    Route::get('/application/{id}/edit', [ScholarshipController::class, 'edit'])
-        ->name('applications.edit');
-
-    // Update application
-    Route::put('/application/{id}', [ScholarshipController::class, 'update'])
-        ->name('applications.update');
-});
+    Route::middleware(['auth'])
+        ->prefix('student')
+        ->name('student.')
+        ->group(function () {
+    
+            // Student dashboard
+            Route::get('/dashboard', [ScholarshipController::class, 'index'])
+                ->name('dashboard');
+    
+            // Show apply form
+            Route::get('/scholarship/{id}/apply', [ScholarshipController::class, 'create'])
+                ->name('scholarship.apply.form');
+    
+            // Store application
+            Route::post('/scholarship/{id}/apply', [ScholarshipController::class, 'store'])
+                ->name('scholarship.apply.store');
+    
+            // Edit application (APPLICATION ID)
+            Route::get('/applications/{id}/edit', [ScholarshipController::class, 'edit'])
+                ->name('applications.edit');
+    
+            // Update application
+            Route::put('/applications/{id}', [ScholarshipController::class, 'update'])
+                ->name('applications.update');
+        });
+    
 
 
 
