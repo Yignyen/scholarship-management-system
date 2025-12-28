@@ -11,7 +11,7 @@
     <table class="w-full border">
         <thead>
             <tr class="bg-gray-100">
-                <th class="border px-2 py-1">#</th>
+                <th class="border px-2 py-1">Sl.no</th>
                 <th class="border px-2 py-1">Student Name</th>
                 <th class="border px-2 py-1">Email</th>
                 <th class="border px-2 py-1">Scholarship</th>
@@ -30,7 +30,10 @@
                 <td class="border px-2 py-1">{{ $loop->iteration }}</td>
                 <td class="border px-2 py-1">{{ $app->user->name }}</td>
                 <td class="border px-2 py-1">{{ $app->email }}</td>
-                <td class="border px-2 py-1">{{ $app->scholarship->title ?? 'N/A' }}</td>
+                <td class="border px-2 py-1">
+        {{ $app->scholarship ? $app->scholarship->name : 'N/A' }}
+    </td>
+
                 <td class="border px-2 py-1">{{ $app->phone }}</td>
                 <td class="border px-2 py-1">{{ $app->dob }}</td>
                 <td class="border px-2 py-1">{{ $app->gender }}</td>

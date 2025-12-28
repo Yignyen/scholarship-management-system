@@ -20,4 +20,9 @@ class Scholarship extends Model
         'deadline',
         'funded_by',
     ];
+    public function applications()
+{
+    return $this->hasMany(Application::class);
+}
+
 }
