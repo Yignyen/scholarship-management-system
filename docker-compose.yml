@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  app:
+    image: thecodingmachine/php:8.2-v4-apache
+    container_name: scholarship_app
+    restart: always
+    ports:
+      - "8000:80"
+    environment:
+      - APACHE_DOCUMENT_ROOT=public
+      - PHP_EXTENSION_PDO_MYSQL=1
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    container_name: scholarship_mysql
+    environment:
+      MYSQL_DATABASE: scholarship_db
+      MYSQL_USER: scholar
+      MYSQL_PASSWORD: password123
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

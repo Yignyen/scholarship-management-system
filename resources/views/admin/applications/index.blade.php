@@ -2,7 +2,17 @@
 
 @section('content')
 <div class="container mx-auto py-8">
+    <div class="mb-4">
+    <a href="{{ route('admin.dashboard') }}"
+       class="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700">
+        ← Back
+    </a>
+    
+</div>
+
+    
     <h2 class="text-2xl font-bold mb-4">All Applications</h2>
+    
 
     @if(session('success'))
         <div class="bg-green-200 p-2 mb-4">{{ session('success') }}</div>

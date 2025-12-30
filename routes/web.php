@@ -13,7 +13,22 @@
 //for store scholarship form
       use App\Http\Controllers\Student\ApplicationController;
 
-   
+   use Illuminate\Support\Facades\Session;
+
+
+   Route::get('/set', function () {
+    session(['test_value' => 'Laravel Session is Working!']);
+    return "Session set! <a href='/get'>Now click here</a>";
+});
+
+Route::get('/get', function () {
+    return "Value from session: " . session('test_value', 'SESSION_NOT_FOUND');
+});
+
+
+
+
+
 
     Route::get('/', function () {
         return view('welcome');
@@ -185,4 +200,14 @@ Route::middleware(['auth', 'student'])
 
     });
 
+
+
+//for test for docker
+    Route::get('/test-session', function () {
+    session(['foo' => 'bar']);
+    return session('foo');
+});
+
+
     require __DIR__.'/auth.php';
+

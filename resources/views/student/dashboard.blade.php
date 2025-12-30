@@ -2,6 +2,7 @@
 
     @section('content')
     <div class="container mx-auto py-8">
+         <marquee><p>Welcome, {{ Auth::user()->name }}!</p></marquee>
         <h1 class="text-2xl font-bold mb-4">Available Scholarships</h1>
 
         <table class="min-w-full border border-gray-200">
