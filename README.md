@@ -1,3 +1,35 @@
+## Requirements
+- Docker
+- Docker Compose
+-npm installed && $npm run dev
+
+## Setup Instructions
+
+1. Clone the repository
+   git clone https://github.com/tenzinyignyen/scholarship-management-system.git
+   cd scholarship-management-system
+
+2. Create environment file
+   cp .env.example .env
+
+3. Generate application key
+   docker compose exec app php artisan key:generate
+   add key inside .env file
+
+4. Start containers
+   docker-compose up -d
+
+5. Run migrations
+   docker-compose exec app php artisan migrate
+
+6. Access the app
+   http://localhost:8000
+
+
+
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
